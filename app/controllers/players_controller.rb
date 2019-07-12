@@ -16,6 +16,7 @@ class PlayersController < ApplicationController
     offset = params[:offset]
     name_search = params[:name_search]
     sort_by = params[:sort_by]
+    sort_order = params[:sort_order] # ascending (asc) or descending (desc)
 
     # Perform Name Search
     if name_search
@@ -26,6 +27,18 @@ class PlayersController < ApplicationController
       end
     end
 
+    # Perform Necessary Sorting for:
+    # - Total Rushing Yards(Yrds)
+    # - Longest Rush(Lng)
+    # - Total Rushing Touchdowns(TD)
+    if ['Yds', 'Lng', 'TD'].include?(sort_by)
+      filtered_player_list = filtered_player_list.sort_by { |player| player[sort_by].to_i }
+      if sort_order == 'desc'
+        filtered_player_list = filtered_player_list.reverse
+      end
+    end
+
+    # Calculate Necessary Offset Values for pagination
     if offset
       # Parse the offset into a usable integer
       offset = offset.to_i
