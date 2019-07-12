@@ -10,7 +10,7 @@ class PlayersController < ApplicationController
     # Parse Players JSON file
     full_player_list = JSON.parse(File.read('app/rushing.json'));
 
-    filtered_player_list = []
+    filtered_player_list = full_player_list
 
     # Extract Potential Query String Values
     offset = params[:offset]
@@ -20,6 +20,7 @@ class PlayersController < ApplicationController
 
     # Perform Name Search
     if name_search
+      filtered_player_list = []
       full_player_list.each do |player|
         if player['Player'].downcase.include? name_search.downcase
           filtered_player_list.push(player)
