@@ -28,7 +28,7 @@ class PlayersController < ApplicationController
     end
 
     # Perform Necessary Sorting for:
-    # - Total Rushing Yards(Yrds)
+    # - Total Rushing Yards(Yds)
     # - Longest Rush(Lng)
     # - Total Rushing Touchdowns(TD)
     if ['Yds', 'Lng', 'TD'].include?(sort_by)
