@@ -10,7 +10,7 @@ class PlayersController < ApplicationController
     # Parse Players JSON file
     full_player_list = JSON.parse(File.read('app/rushing.json'));
 
-    filtered_player_list = full_player_list
+    filtered_player_list = []
 
     # Extract Potential Query String Values
     offset = params[:offset]
@@ -44,7 +44,7 @@ class PlayersController < ApplicationController
       offset = offset.to_i
       # If the offset is greater or equal to the amount of players in the first place,
       # simply set it to 0
-      if offset >= full_player_list.length
+      if offset >= filtered_player_list.length
         offset = 0
       end
       # Return 25 records, starting from the offset value
